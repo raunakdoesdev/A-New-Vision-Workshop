@@ -1,11 +1,12 @@
 import cv2
+from time import sleep
 
 # Initializations
 mouth_cascade = cv2.CascadeClassifier('mouth.xml')
 if mouth_cascade.empty():
   raise IOError('Unable to load the mouth cascade classifier xml file')
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 def img_load(img_path):
     """
@@ -45,14 +46,5 @@ def get_camera_image():
 
 def find_mouths(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    return mouth_cascade.detectMultiScale(gray, 5, 11)
+    return mouth_cascade.detectMultiScale(gray, 1.7, 11)
 
-stache = img_load('stache.png')  # Load the stache
-original = img_load('face_detect.png')  # Load the original image
-mouths = find_mouths(original)  # Find the mouths
-
-if len(mouths) != 0: # If there are mouths
-    x, y, width, height = mouths[-1]  # Get best match for mouth
-    original = draw(original, stache, x, y-height/3.5, width, int(height/1.2))
-
-show_image(original)
