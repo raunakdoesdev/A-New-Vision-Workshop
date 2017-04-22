@@ -3,10 +3,11 @@ from time import sleep
 
 # Initializations
 mouth_cascade = cv2.CascadeClassifier('mouth.xml')
+face_cascade = cv2.CascadeClassifier('face.xml')
 if mouth_cascade.empty():
   raise IOError('Unable to load the mouth cascade classifier xml file')
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 def img_load(img_path):
     """
@@ -48,3 +49,6 @@ def find_mouths(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     return mouth_cascade.detectMultiScale(gray, 1.7, 11)
 
+def find_faces(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    return face_cascade.detectMultiScale(gray, 1.3, 5)

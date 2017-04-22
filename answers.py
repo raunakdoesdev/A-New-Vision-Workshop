@@ -14,9 +14,9 @@ if mode == 0:
 # MOUTH DETECT AND DRAW CHALLENGE
 elif mode == 1:
     original = img_load('face_detect.png')  # Load the original image
-    mouths = find_mouths(original)  # Find the mouths
-    if len(mouths) != 0: # If there are mouths
-        x, y, width, height = mouths[-1]  # Get best match for mouth
+    faces = find_faces(original)  # Find the faces
+    if len(faces) != 0: # If there are faces
+        x, y, width, height = faces[-1]  # Get best match for faces
         original = draw(original, img_load('greencircle.png'), x, y, width, height)
     show_image(original)
 
